@@ -10,7 +10,7 @@ import datetime
 import pprint
 pp = pprint.PrettyPrinter(indent=4)
 BATCH_SIZE = 32
-DEV_IMG_COUNT = 10
+DEV_IMG_COUNT = 1
 ssl._create_default_https_context = ssl._create_unverified_context
 tf.enable_eager_execution()
 AUTOTUNE = tf.data.experimental.AUTOTUNE
@@ -26,12 +26,12 @@ def get_all_images(path_to_images):
 	with open(path_to_images, 'rt') as training_file: 
 		reader = csv.DictReader(training_file)
 		for row in reader:
-			if(counter<DEV_IMG_COUNT):
-				for image in row:
-					if(row[image]):
-						img_path = project_path + '/models/' + row[image]
-						list_of_images.append(img_path)
-						counter+=1
+			#if(counter<DEV_IMG_COUNT):
+			for image in row:
+				if(row[image]):
+					img_path = project_path + '/models/' + row[image]
+					list_of_images.append(img_path)
+					counter+=1
 	return list_of_images
 
 def preprocess_image(image):
@@ -108,13 +108,11 @@ def run_training(training_csv):
 	keras_dataset = get_keras_dataset(dataset, len(images))
 	mobile_net = tf.keras.applications.MobileNetV2(input_shape=(224,224,3), include_top=True, alpha=1.0)
 	mobile_net.trainable = False
-	for i in keras_dataset:
-		print('adding to model', datetime.datetime.now())
-		mobile_net(i)
-
+	data_to_model = next(iter(keras_dataset))
+	mobile_net(data_to_model)
 	model = tf.keras.Sequential([
 		mobile_net,
-		tf.keras.layers.GlobalAveragePooling2D(),
+		#tf.keras.layers.GlobalAveragePooling2D(),
 		tf.keras.layers.Dense(len(images))
 	])
 	
