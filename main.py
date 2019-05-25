@@ -106,7 +106,7 @@ def run_training(training_csv):
 	images = get_all_images(training_csv)
 	dataset = build_tensorflow_dataset(images)
 	keras_dataset = get_keras_dataset(dataset, len(images))
-	mobile_net = tf.keras.applications.MobileNetV2(input_shape=(224,224,3), include_top=True, alpha=1.0)
+	mobile_net = tf.keras.applications.MobileNetV2(input_shape=(224,224,3), include_top=False, alpha=1.0)
 	mobile_net.trainable = False
 	data_to_model = next(iter(keras_dataset))
 	mobile_net(data_to_model)
