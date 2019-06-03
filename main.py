@@ -127,4 +127,17 @@ def run_training(training_csv):
 	print('Total Run Time', end - start)
 	return 
 
-run_training(training_csv)
+def create_image_hash():
+	dirs = {}
+	image_path = os.getcwd() + '/training_images/'
+	for path, directories, files in os.walk(image_path, topdown=True):
+		name = os.path.basename(os.path.normpath(path))
+		for i, file in enumerate(files):
+			files[i] = os.path.join(path, file)
+
+		dirs[name] = files
+	return dirs
+
+create_image_hash()
+
+#run_training(training_csv)
