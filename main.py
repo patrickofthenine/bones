@@ -48,15 +48,16 @@ def create_tensors(images):
 	processed = list()
 	#create tensors
 	counter = 0
-	for image in images:
-		try:
-			processed.append(preprocess_image(image))
-			counter+=1
-		except Exception as e:
-			print(e)	
+
+	for category, image_set in images.items():
+		for image in image_set:
+			try:
+				processed.append(preprocess_image(image))
+				counter+=1
+			except Exception as e:
+				print(e)	
 	print('Successfully Processed: ', counter)
 	return processed
-
 
 def build_tensorflow_dataset(images):
 	print('...building tensorflow dataset from', len(images), 'images')
@@ -100,10 +101,10 @@ def change_range(image):
 	in_range_image = 2*image-1
 	return in_range_image
 
-def run_training(training_csv):
+def run_training():
 	start = datetime.datetime.now()
 	print('Starting: ', start)
-	images = get_all_images(training_csv)
+	images = create_image_hash()
 	dataset = build_tensorflow_dataset(images)
 	keras_dataset = get_keras_dataset(dataset, len(images))
 	mobile_net = tf.keras.applications.MobileNetV2(input_shape=(224,224,3), include_top=False, alpha=1.0)
@@ -134,10 +135,10 @@ def create_image_hash():
 		name = os.path.basename(os.path.normpath(path))
 		for i, file in enumerate(files):
 			files[i] = os.path.join(path, file)
-
 		dirs[name] = files
 	return dirs
 
-create_image_hash()
+#images = create_image_hash()
+#pp.pprint(images)
 
-#run_training(training_csv)
+run_training()
