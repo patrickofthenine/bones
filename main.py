@@ -44,7 +44,7 @@ def preprocess_image(image):
 	return img_final
 
 def create_tensors(images):
-	print('Total number of images: ', len(images))
+	print('Total number of image sets: ', len(images))
 	processed = list()
 	#create tensors
 	counter = 0
@@ -53,14 +53,13 @@ def create_tensors(images):
 		for image in image_set:
 			try:
 				processed.append(preprocess_image(image))
-				counter+=1
 			except Exception as e:
 				print(e)	
-	print('Successfully Processed: ', counter)
+	print('Successfully Processed: ', len(processed), 'images')
 	return processed
 
 def build_tensorflow_dataset(images):
-	print('...building tensorflow dataset from', len(images), 'images')
+	print('...building tensorflow dataset from image sets', images.keys())
 		
 	#slice array of paths into dataset of paths
 	tensors = create_tensors(images)
@@ -113,7 +112,7 @@ def run_training():
 	mobile_net(data_to_model)
 	model = tf.keras.Sequential([
 		mobile_net,
-		#tf.keras.layers.GlobalAveragePooling2D(),
+		tf.keras.layers.GlobalAveragePooling2D(),
 		tf.keras.layers.Dense(len(images))
 	])
 	
