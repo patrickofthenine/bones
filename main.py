@@ -8,16 +8,13 @@ import random
 from PIL import Image
 import datetime
 import pprint
+import xml 
 pp = pprint.PrettyPrinter(indent=4)
 BATCH_SIZE = 32
-DEV_IMG_COUNT = 1
+DEV_IMG_COUNT = 10
 ssl._create_default_https_context = ssl._create_unverified_context
 tf.enable_eager_execution()
 AUTOTUNE = tf.data.experimental.AUTOTUNE
-
-project_path 	= os.getcwd() 
-training_model  = project_path + '/models/MURA-v1.1'
-training_csv	= training_model + '/train_image_paths.csv'
 
 #gets list of images
 def get_all_images(path_to_images):
@@ -100,7 +97,7 @@ def change_range(image):
 	in_range_image = 2*image-1
 	return in_range_image
 
-def run_training():
+def run_training_v1():
 	start = datetime.datetime.now()
 	print('Starting: ', start)
 	images = create_image_hash()
@@ -110,6 +107,7 @@ def run_training():
 	mobile_net.trainable = False
 	data_to_model = next(iter(keras_dataset))
 	mobile_net(data_to_model)
+	
 	model = tf.keras.Sequential([
 		mobile_net,
 		tf.keras.layers.GlobalAveragePooling2D(),
@@ -139,5 +137,20 @@ def create_image_hash():
 
 #images = create_image_hash()
 #pp.pprint(images)
+#run_training()
+
+#https://medium.com/coinmonks/tensorflow-object-detection-with-custom-objects-34a2710c6de5
+def run_training():
+	csv_cols = ['bone', 'other column']
+	images = create_image_hash()
+	outfile = os.path.join(os.getcwd(), 'output', 'images.csv')
+	with open(outfile, 'w', newline='') as out:
+		writer = csv.writer(out)
+		for bone, paths in images.items():
+			for path in paths:
+				row = [bone, path]
+				writer.writerow(row)
+	print('done')
+	return 
 
 run_training()
