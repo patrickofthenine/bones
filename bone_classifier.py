@@ -91,9 +91,13 @@ class BoneClassifier(object):
             img = Image.open(image_path)
             img_np = self.load_image_into_numpy_array(img)
             classification = self.get_classification(img_np)
+
             try:
-                plt.figure(figsize=IMAGE_SIZE)
-                plt.imshow(classification)
+                print('opening')
+                plt_figure = plt.figure(figsize=IMAGE_SIZE)
+                img_from_array = Image.fromarray(classification)
+                img_from_array.show()
+                
             except Exception as e:
                 print('exception during plotting', e)
 
