@@ -1,0 +1,152 @@
+item {
+  id: 1
+  name: 'ribs'
+}
+item {
+	id: 2
+	name: 'spine'	
+}
+item {
+	id: 3
+	name: 'hand'
+}
+item {
+	id: 4 
+	name: 'leg'
+}
+item {
+	id: 5
+	name: 'foot'
+}
+item {
+	id: 6 
+	name: 'femur'
+}
+item {
+	id: 7
+	name: 'skull'
+}
+item {
+	id: 8
+	name: 'jaw'
+}
+item {
+	id: 9
+	name: 'tooth'
+}
+item {
+	id: 10
+	name: 'teeth'
+}
+item {
+	id: 11
+	name: 'joint'
+}
+item {
+	id: 12
+	name: 'elbow'
+}
+item {
+	id: 13
+	name: 'knee'
+}
+item {
+	id: 14
+	name: 'ankle'
+}
+item {
+	id: 15
+	name: 'toes'
+}
+item {
+	id: 16
+	name: 'pelvis'
+}
+item {
+	id: 17
+	name: 'bone'
+}
+item {
+	id: 18
+	name: 'bones'
+}
+item {
+	id: 19
+	name: 'rib'
+}
+item {
+	id: 20
+	name: 'leg bone'
+}
+item {
+	id: 21
+	name: 'human'
+}
+item {
+	id: 22
+	name: 'human foot bone'
+}
+item {
+	id: 23
+	name: 'human bone'
+}
+item {
+	id: 24
+	name: 'forearm'
+}
+item {
+	id: 25
+	name: 'finger'
+}
+item {
+	id: 26
+	name: 'fingers'
+}
+item {
+	id: 27
+	name: 'shin'
+}
+item {
+	id: 28
+	name: 'wrist'
+}
+item {
+	id: 29
+	name: 'vertegrate'
+}
+item {
+	id: 30
+	name: 'toe'
+}
+item {
+	id: 31
+	name: 'toes'
+}
+item {
+	id: 32
+	name: 'human leg'
+}
+item {
+	id: 33
+	name: 'human hand'
+}
+item {
+	id: 34
+	name: 'eyes'
+}
+item {
+	id: 35
+	name: 'mouth'
+}
+item {
+	id: 36
+	name: 'hip'
+}
+item {
+	id: 37
+	name: 'joint'
+}
+item {
+	id: 38
+	name: 'arm'
+}

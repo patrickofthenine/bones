@@ -9,6 +9,10 @@ from PIL import Image
 import datetime
 import pprint
 import xml 
+import glob
+import pandas as pd
+import xml.etree.ElementTree as ET
+
 pp = pprint.PrettyPrinter(indent=4)
 BATCH_SIZE = 32
 DEV_IMG_COUNT = 10
@@ -153,4 +157,32 @@ def run_training():
 	print('done')
 	return 
 
-run_training()
+#run_training()
+#from https://github.com/datitran/raccoon_dataset/blob/master/xml_to_csv.py
+def xml_to_csv(path):
+    xml_list = []
+    for xml_file in glob.glob(path + '/*.xml'):
+        tree = ET.parse(xml_file)
+        root = tree.getroot()
+        for member in root.findall('object'):
+            value = (root.find('filename').text,
+                     int(root.find('size')[0].text),
+                     int(root.find('size')[1].text),
+                     member[0].text,
+                     int(member[4][0].text),
+                     int(member[4][1].text),
+                     int(member[4][2].text),
+                     int(member[4][3].text)
+                     )
+            xml_list.append(value)
+    column_name = ['filename', 'width', 'height', 'class', 'xmin', 'ymin', 'xmax', 'ymax']
+    xml_df = pd.DataFrame(xml_list, columns=column_name)
+    return xml_df
+
+def main():
+    image_xml_path = os.path.join(os.getcwd(), 'labels_output')
+    xml_df = xml_to_csv(image_xml_path)
+    xml_df.to_csv('skeletal_labels.csv', index=None)
+    print('Successfully converted xml to csv.')
+
+main()
