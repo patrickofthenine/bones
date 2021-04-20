@@ -27,7 +27,7 @@ Pillow==6.0.0
 pluggy==0.11.0
 prompt-toolkit==2.0.9
 protobuf==3.8.0
-py==1.8.0
+py==1.10.0
 Pygments==2.4.1
 pytest==4.5.0
 python-dateutil==2.8.0
